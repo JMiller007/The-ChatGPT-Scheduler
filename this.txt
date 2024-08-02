@@ -1,0 +1,24 @@
+
+img_data, img_width, img_height = load_image("objects/rayman/raymanModel.png", flip=True)
+
+texture_id = glGenTextures(1)
+# GL_CLAMP_TO_EDGE works as well for the first two
+glBindTexture(GL_TEXTURE_2D, texture_id)  # Bind the texture object. That is, make it the active one.
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)  # Set the texture wrapping parameters
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST)  # Set texture filtering parameters
+#glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)  # Set texture filtering parameters
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+# Upload the image data to the GPU
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, img_data)
+glGenerateMipmap(GL_TEXTURE_2D)
+#glGenerateMipmap(GL_LINEAR_MIPMAP_NEAREST)
+shaderProgram_obj["tex"] = 0
+
+# Unbind the texture
+glBindTexture(GL_TEXTURE_2D, 0)
+
+
+
+Make sure you change normal_loc to != 1 I set to 3 and make the appropriate changes in your frag.glsl layout section where it says what normal equals

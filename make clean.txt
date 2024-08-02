@@ -1,0 +1,5 @@
+make clean
+make all
+sudo rmmod lkmasg2
+sudo insmod lkmasg2.ko
+sudo ./test /dev/lkmasg2
